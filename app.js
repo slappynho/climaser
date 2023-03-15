@@ -4,8 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const methodOverride = require('method-override')
+
+
+const session = require('express-session')
+
+const localsUserCheck = require('./middlewares/localsUserCheck')
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var productsRouter = require('./routes/products');
+const { application } = require('express');
 
 var app = express();
 
@@ -19,8 +30,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(methodOverride('_method'));
+app.use(session({
+  secret : "my secret"
+}))
+
+app.use(localsUserCheck)//colocarlo aca porq si lo pongo antes no anda
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/products', productsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
