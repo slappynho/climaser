@@ -45,12 +45,12 @@ module.exports = {
     }
     
     },
-    details : (req,res) => {
+    detalle : (req,res) => {
                                                                                     //cuando va la ruta un dato es un PARAMS
         let producto = productosdb.find(producto => producto.id === req.params.id) //asi si el id q esta en mi data es un string 
                                                                                    // +req.params.id asi si el id de mi data es un number 01 02 03 sin comillas
 
-        return res.render('details',{
+        return res.render('detalleproducto',{
             producto
         })
     },

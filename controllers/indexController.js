@@ -10,5 +10,8 @@ module.exports = {
             pantalones : productosdb.filter(producto => producto.categoria === "pantalon"),
         })
     },
+    products : (req,res) => {
+        return res.render('productos')
+    }
 
 }
