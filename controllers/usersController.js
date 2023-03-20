@@ -2,8 +2,6 @@ const {usuariosdb,guardar} = require('../data/usersdb')
 const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-
-
 module.exports = {
     register : (req,res) => {
         return res.render('register')
@@ -39,13 +37,10 @@ module.exports = {
 
     },
 
-
-
     login : (req,res) => {
         return res.render('login')
     },
     processLogin : (req,res) => {
-
         let errors = validationResult(req);
         const {email} = req.body;
         if(errors.isEmpty()){
@@ -55,8 +50,6 @@ module.exports = {
                 nombre : usuario.nombre,
                 rol : usuario.rol
             }
-
-
 /*             if(recordar){
                 res.cookie('airesAcondicionado',req.session.userLogin,{maxAge: 1000 * 60})
             } */
@@ -72,5 +65,8 @@ module.exports = {
         req.session.destroy();
         res.cookie('aireacondicionado',null,{maxAge:-1})
         return res.redirect('/')
+    },
+    admin : (req,res) => {
+        return res.render('adminView')
     }
 }
